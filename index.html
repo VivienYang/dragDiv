@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可拖拽div</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #drag{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            border: 1px solid salmon;
+        }
+    </style>
+</head>
+<body>
+    <div id="drag"></div>
+</body>
+<script>
+let isDragging=false
+let pos = null
+drag.addEventListener('mousedown',function(e){
+    isDragging=true
+    pos = [e.clientX,e.clientY]
+})
+document.addEventListener('mousemove',function(e){
+    if(!isDragging){return}
+    console.log(pos)
+    let vectorX = e.clientX - pos[0]
+    let vectorY = e.clientY - pos[1]
+    let posLeft = parseInt(drag.style.left || 0)+vectorX
+    let posTop = parseInt(drag.style.top || 0)+vectorY
+    // if(posLeft<0 || posTop<0){
+    //     alert('请不要超出边界')
+    // }
+    console.log(posLeft,posTop)
+    drag.style.left = posLeft+'px'
+    drag.style.top = posTop+'px'
+    pos = [e.clientX,e.clientY]
+})
+document.addEventListener('mouseup',function(e){
+    isDragging=false
+})
+</script>
+</html>
